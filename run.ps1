@@ -70,3 +70,4 @@ function pcControl() # 4 - PC(not in)Control
 choose;
 
 #powershell -ExecutionPolicy Bypass -File C:\Users\filip\Desktop\run.ps1
+#powershell wget https://raw.githubusercontent.com/sJ3Wpid/schoolproject/main/run.ps1 -outfile run.ps1; powershell -ExecutionPolicy Bypass -File .\run.ps1
