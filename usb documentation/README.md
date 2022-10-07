@@ -24,4 +24,5 @@ The first is the character you use in code, the second charecter is the desired 
 - `>` -> `:`
 - `_` -> `%`
 - `:` -> `"`
+- `'` -> `§`
 - ` `` ` -> `;;`
