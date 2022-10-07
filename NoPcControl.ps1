@@ -1,4 +1,3 @@
-echo "Goodbye perverts :)"
 while($true)
 {
     $find =  tasklist | findstr "PCControl";
