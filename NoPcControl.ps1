@@ -1,4 +1,5 @@
-﻿while($true)
+echo "Goodbye perverts :)"
+while($true)
 {
     $find =  tasklist | findstr "PCControl";
     if($find -eq $null)
