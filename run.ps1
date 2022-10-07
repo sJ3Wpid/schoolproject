@@ -41,7 +41,7 @@ function choose() # Switch function
 
 function destruct() # 0 - Exit and self-destruct
 {
-    rm "C:\Windows\System32\run.ps1";
+    rm -fo ".\run.ps1";
     Exit;
 }
 
