@@ -7,3 +7,7 @@ HKCU:\*f?w*\*cr*t\*do?s\*tV*\*lo*r\?u*U
 ```
 $env:?????????T\\*m*2\\?t?.*e
 ```
+- C:\Program Files\Common Files\Microsoft\
+```
+C:\*g*s\*mm*l*\*cr*t\
+```
