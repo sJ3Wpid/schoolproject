@@ -1,3 +1,8 @@
+## Get highest local privileges
+- Visibility: none
+- GruntTask: **ImpersonateUser**
+- Username: `NT AUTHORITY\SYSTEM`
+
 ## Setup Persistance ([source](https://www.sevenlayers.com/index.php/370-covenant-c2-deep-dive))
 - Visibility: none
 - GruntTask: **PersistStartup**
