@@ -2,7 +2,7 @@
 - Visibility: none
 - GruntTask: **PersistStartup**
 - Payload: [here](https://raw.githubusercontent.com/sJ3Wpid/schoolproject/main/launcher.ps1)
-
+- FileName: `student.bat`
 
 ## Get high integrity ([source](https://www.sevenlayers.com/index.php/370-covenant-c2-deep-dive))
 ### Step 1
